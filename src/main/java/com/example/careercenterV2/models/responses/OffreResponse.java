@@ -1,11 +1,19 @@
 package com.example.careercenterV2.models.responses;
 
-import java.util.Date;
-import java.util.UUID;
+import lombok.*;
 
-public class AddOffreResponse {
+import java.util.Date;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class OffreResponse {
 
     long id ;
+    String reference;
     String titre;
     String description;
     String type;
@@ -14,6 +22,4 @@ public class AddOffreResponse {
     String state;
     Date datePublication;
     Date dateCloture;
-
-    UUID companyId ;
 }

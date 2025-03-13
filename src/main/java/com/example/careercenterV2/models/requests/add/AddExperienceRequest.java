@@ -1,4 +1,4 @@
-package com.example.careercenterV2.models.requests;
+package com.example.careercenterV2.models.requests.add;
 
 import lombok.Data;
 import lombok.Getter;
@@ -13,13 +13,13 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class AddExperienceRequest {
 
      String poste;
      String type;
      String city;
      String description;
-     String experienceDate;
      String nomEntreprise;
      String state;
      Date dateDebut;

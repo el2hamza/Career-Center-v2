@@ -1,7 +1,10 @@
 package com.example.careercenterV2.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -9,6 +12,9 @@ import java.util.Date;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Experience {
 
     @Id
@@ -19,7 +25,6 @@ public class Experience {
     private String type;
     private String city;
     private String description;
-    private String experienceDate;
     private String nomEntreprise;
     private String state;
     private Date dateDebut;

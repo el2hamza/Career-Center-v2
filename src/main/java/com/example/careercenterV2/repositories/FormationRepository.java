@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface FormationRepository extends JpaRepository<Formation, Long> {
 
-    List<Formation> findAllByOrderByIdDesc();
 
-    @Override
-    Optional<Formation> findById(Long aLong);
+    Optional<Formation> findByDiplomeObtenue(String diplomeObtenue);
+
+   Optional<Formation> findById(long id);
 }
