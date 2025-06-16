@@ -1,4 +1,4 @@
-package com.example.careercenterV2.models.requests;
+package com.example.careercenterV2.models.requests.add;
 
 
 import lombok.Data;

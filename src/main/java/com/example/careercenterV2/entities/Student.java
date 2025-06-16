@@ -1,5 +1,6 @@
 package com.example.careercenterV2.entities;
 
+import com.example.careercenterV2.security.AppUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Student {
+public class Student implements AppUser {
 
 
     @Id
@@ -41,4 +42,9 @@ public class Student {
     @CollectionTable(name = "student_skills", joinColumns = @JoinColumn(name = "student_id"))
     @Column(name = "skill")
     private List<String> skills;
+
+    @Override
+    public String getRole() {
+        return "STUDENT";
+    }
 }

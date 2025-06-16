@@ -10,7 +10,7 @@ import java.util.List;
 public interface ExperienceService {
 
 
-    List<Experience> getAllExperience();
+    List<ExperienceResponse> getAllExperience();
 
     ExperienceResponse addExperience (AddExperienceRequest experience) throws Exception;
 

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface OffreService {
 
-    List<Offre> getAllOffre();
+    List<OffreResponse> getAllOffre();
 
     OffreResponse addOffre(AddOffreRequest addOffreRequest) throws Exception;
 
@@ -19,11 +19,11 @@ public interface OffreService {
 
     void deleteOffre(long id) throws Exception;
 
-    List<Offre> getOffreByType(String type) throws Exception;
+    List<OffreResponse> getOffreByType(String type) throws Exception;
 
-    List<Offre> getOffreBySecteur(String secteur) throws Exception;
+    List<OffreResponse> getOffreBySecteur(String secteur) throws Exception;
 
-    List<Offre> getExpiredOffres() throws Exception;
+    List<OffreResponse> getExpiredOffres() throws Exception;
 
 
 

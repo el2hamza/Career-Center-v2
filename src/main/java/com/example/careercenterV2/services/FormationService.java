@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface FormationService {
 
-    List<Formation> getAllFormations();
+    List<FormationResponse> getAllFormations();
 
     FormationResponse addFormation(AddFormationRequest formation) throws Exception;
 

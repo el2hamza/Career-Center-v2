@@ -1,5 +1,6 @@
 package com.example.careercenterV2.entities;
 
+import com.example.careercenterV2.security.AppUser;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Company {
+public class Company implements AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,5 +34,11 @@ public class Company {
     private String numPattente ;
     private String description ;
     private Date creationDate ;
+
+
+    @Override
+    public String getRole() {
+        return "COMPANY";
+    }
 
 }

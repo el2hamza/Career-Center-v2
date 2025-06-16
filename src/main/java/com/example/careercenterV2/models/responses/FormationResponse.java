@@ -6,10 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Builder
 public class FormationResponse {
 

@@ -16,5 +16,6 @@ public interface StudentRepository extends JpaRepository<Student, UUID> {
     @Override
     Optional<Student> findById(UUID uuid);
 
+    Optional<Student> findByEmail(String email);
 
 }
