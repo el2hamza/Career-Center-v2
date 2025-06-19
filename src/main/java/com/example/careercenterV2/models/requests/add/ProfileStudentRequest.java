@@ -9,11 +9,15 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
+import java.util.UUID;
+
 @Data
 @Getter
 @Setter
 @NoArgsConstructor
 public class ProfileStudentRequest {
+
+    private UUID id;
     private String address;
     private String city;
     private String cv;
