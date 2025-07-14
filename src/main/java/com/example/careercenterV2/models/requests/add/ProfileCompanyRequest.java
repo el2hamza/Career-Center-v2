@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Getter
@@ -14,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class ProfileCompanyRequest {
 
+    private UUID id;
     private String address;
     private String phone;
     private String city ;

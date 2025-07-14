@@ -8,16 +8,15 @@ import com.example.careercenterV2.models.requests.add.ProfileStudentRequest;
 import com.example.careercenterV2.exceptions.ResourceNotFound;
 import com.example.careercenterV2.repositories.StudentRepository;
 import com.example.careercenterV2.services.StudentService;
+import com.example.careercenterV2.utils.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -28,6 +27,8 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
+    private final MessageSource messageSource;
+    private final FileStorageService fileStorageService;
 
     @Value("${student.upload-dir}")
     private String baseUploadDir;
@@ -43,26 +44,26 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentResponse getStudentById(UUID id) {
         Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFound("Student not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFound(messageSource.getMessage("Student.not.found",null, Locale.getDefault())));
         return studentMapper.entityToResponse(student);
     }
 
     @Override
     public StudentResponse editProfileStudent(ProfileStudentRequest profile) {
         Student student = studentRepository.findById(profile.getId())
-                .orElseThrow(() -> new ResourceNotFound("Student not found with id: " + profile.getId()));
+                .orElseThrow(() -> new ResourceNotFound(messageSource.getMessage("Student.not.found",null, Locale.getDefault())));
 
         // Upload CV and photo files if provided
         String uploadDir = baseUploadDir + "/" + student.getId();
-        createDirectoryIfNotExist(uploadDir);
+        fileStorageService.createDirectoryIfNotExist(uploadDir);
 
         if (profile.getCv() != null && !profile.getCv().isEmpty()) {
-            String cvPath = saveFile(uploadDir, "cv.pdf", profile.getCv());
+            String cvPath = fileStorageService.saveFile(uploadDir, "cv.pdf", profile.getCv());
             student.setCv(cvPath);
         }
 
         if (profile.getPhoto() != null && !profile.getPhoto().isEmpty()) {
-            String photoPath = saveFile(uploadDir, "photo.jpg", profile.getPhoto());
+            String photoPath = fileStorageService.saveFile(uploadDir, "photo.jpg", profile.getPhoto());
             student.setPhoto(photoPath);
         }
 
@@ -76,32 +77,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudentById(UUID id) {
         if (!studentRepository.existsById(id)) {
-            throw new ResourceNotFound("Student not found with id: " + id);
+            throw new ResourceNotFound(messageSource.getMessage("Student.not.found",null, Locale.getDefault()));
         }
         studentRepository.deleteById(id);
     }
 
-    private void createDirectoryIfNotExist(String dirPath) {
-        Path path = Paths.get(dirPath);
-        if (!Files.exists(path)) {
-            try {
-                Files.createDirectories(path);
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to create directory: " + dirPath, e);
-            }
-        }
-    }
 
-    private String saveFile(String dir, String filename, String fileContentBase64) {
-        try {
-            byte[] fileData = java.util.Base64.getDecoder().decode(fileContentBase64);
-            Path filePath = Paths.get(dir, filename);
-            Files.write(filePath, fileData);
-            return filePath.toString(); // store the local path in DB
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to save file: " + filename, e);
-        }
-    }
 
 
 

@@ -12,9 +12,9 @@ public interface ExperienceService {
 
     List<ExperienceResponse> getAllExperience();
 
-    ExperienceResponse addExperience (AddExperienceRequest experience) throws Exception;
+    ExperienceResponse addExperience (AddExperienceRequest experience) ;
 
-    void deleteExperience (long id) throws Exception;
+    void deleteExperience (long id) ;
 
-    ExperienceResponse editExperience(EditExperienceRequest experienceRequest, long id) throws Exception;
+    ExperienceResponse editExperience(EditExperienceRequest experienceRequest, long id) ;
 }

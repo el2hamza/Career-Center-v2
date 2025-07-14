@@ -2,6 +2,7 @@ package com.example.careercenterV2.services.impl;
 
 import com.example.careercenterV2.entities.Experience;
 import com.example.careercenterV2.entities.Student;
+import com.example.careercenterV2.exceptions.ResourceNotFound;
 import com.example.careercenterV2.mappers.ExperienceMapper;
 import com.example.careercenterV2.mappers.FormationMapper;
 import com.example.careercenterV2.models.requests.add.AddExperienceRequest;
@@ -11,9 +12,11 @@ import com.example.careercenterV2.repositories.ExperienceRepository;
 import com.example.careercenterV2.repositories.StudentRepository;
 import com.example.careercenterV2.services.ExperienceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @Service
@@ -23,31 +26,31 @@ public class ExperienceServiceImpl implements ExperienceService {
     private final ExperienceRepository experienceRepository;
     private final StudentRepository studentRepository;
     private final ExperienceMapper experienceMapper;
-    private final FormationMapper formationMapper;
+    private final MessageSource messageSource;
 
     @Override
-    public ExperienceResponse addExperience(AddExperienceRequest experienceRequest) throws Exception {
+    public ExperienceResponse addExperience(AddExperienceRequest experienceRequest)  {
 
         UUID studentId = experienceRequest.getStudentId();
         Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new Exception("Student not found")) ;
+                .orElseThrow(() -> new ResourceNotFound(messageSource.getMessage("Student.not.found",null, Locale.getDefault()))) ;
         Experience experience = experienceMapper.requestToEntity(experienceRequest);
         return experienceMapper.entityToResponse(experienceRepository.save(experience));
     }
 
     @Override
-    public ExperienceResponse editExperience(EditExperienceRequest experienceRequest, long id) throws Exception{
+    public ExperienceResponse editExperience(EditExperienceRequest experienceRequest, long id) {
         Experience experience = experienceRepository.findById(id)
-                .orElseThrow(() -> new Exception("Experience not found")) ;
+                .orElseThrow(() -> new ResourceNotFound(messageSource.getMessage("Experience.not.found",null, Locale.getDefault()))) ;
         experienceMapper.updateEntity(experienceRequest, experience);
         return experienceMapper.entityToResponse(experienceRepository.save(experience));
     }
 
     @Override
-    public void deleteExperience(long id) throws Exception{
+    public void deleteExperience(long id) {
 
         Experience experience= experienceRepository.findById(id)
-                .orElseThrow(() -> new Exception("Experience not found"));
+                .orElseThrow(() -> new ResourceNotFound(messageSource.getMessage("Experience.not.found",null, Locale.getDefault())));
 
         experienceRepository.delete(experience);
     }
