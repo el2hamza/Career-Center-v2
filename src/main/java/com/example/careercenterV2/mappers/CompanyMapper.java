@@ -2,13 +2,9 @@ package com.example.careercenterV2.mappers;
 
 
 import com.example.careercenterV2.entities.Company;
-import com.example.careercenterV2.entities.Student;
 import com.example.careercenterV2.models.requests.RegisterCompanyRequest;
-import com.example.careercenterV2.models.requests.RegisterStudentRequest;
 import com.example.careercenterV2.models.requests.add.ProfileCompanyRequest;
-import com.example.careercenterV2.models.requests.add.ProfileStudentRequest;
 import com.example.careercenterV2.models.responses.CompanyResponse;
-import com.example.careercenterV2.models.responses.StudentResponse;
 import org.mapstruct.*;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.example.careercenterV2.services;
 
-import com.example.careercenterV2.entities.Company;
+
 import com.example.careercenterV2.models.requests.add.ProfileCompanyRequest;
 import com.example.careercenterV2.models.responses.CompanyResponse;
 

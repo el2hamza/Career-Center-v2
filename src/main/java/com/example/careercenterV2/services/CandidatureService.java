@@ -1,8 +1,7 @@
 package com.example.careercenterV2.services;
 
-import com.example.careercenterV2.entities.Candidature;
+
 import com.example.careercenterV2.models.requests.add.AddCandidatureRequest;
-import com.example.careercenterV2.models.requests.edit.EditCandidatureRequest;
 import com.example.careercenterV2.models.responses.CandidatureResponse;
 
 import java.util.List;
