@@ -54,7 +54,7 @@ public class CandidatureServiceImpl implements CandidatureService {
     }
 
     @Override
-    public List<CandidatureResponse> getByOffre(UUID offreId) {
+    public List<CandidatureResponse> getByOffre(long offreId) {
         return candidatureRepository.findByOffreId(offreId).stream()
                 .map(candidatureMapper::entityToResponse)
                 .collect(Collectors.toList());

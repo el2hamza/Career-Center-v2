@@ -9,7 +9,7 @@ import java.util.UUID;
 public class CandidatureResponse {
     private UUID id;
     private UUID candidatId;
-    private UUID offreId;
+    private long offreId;
     private Date dateSoumission;
     private String status;
 }

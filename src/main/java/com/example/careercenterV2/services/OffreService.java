@@ -13,17 +13,17 @@ public interface OffreService {
 
     List<OffreResponse> getAllOffre();
 
-    OffreResponse addOffre(AddOffreRequest addOffreRequest) throws Exception;
+    OffreResponse addOffre(AddOffreRequest addOffreRequest) ;
 
-    OffreResponse editOffre(EditOffreRequest offre, long id) throws Exception;
+    OffreResponse editOffre(EditOffreRequest offre, long id) ;
 
-    void deleteOffre(long id) throws Exception;
+    void deleteOffre(long id) ;
 
-    List<OffreResponse> getOffreByType(String type) throws Exception;
+    List<OffreResponse> getOffreByType(String type) ;
 
-    List<OffreResponse> getOffreBySecteur(String secteur) throws Exception;
+    List<OffreResponse> getOffreBySecteur(String secteur) ;
 
-    List<OffreResponse> getExpiredOffres() throws Exception;
+    List<OffreResponse> getExpiredOffres() ;
 
 
 

@@ -16,7 +16,7 @@ public interface FormationService {
 
     FormationResponse editFormation(EditFormationRequest formation, long id) ;
 
-    void deleteFormation(Long id) throws Exception;
+    void deleteFormation(long id) ;
 
     //List<FormationResponse> getFormationByStudent(UUID id) ;
 }

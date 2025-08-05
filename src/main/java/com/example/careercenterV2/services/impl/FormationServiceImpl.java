@@ -54,7 +54,7 @@ public class FormationServiceImpl implements FormationService {
     }
 
     @Override
-    public void deleteFormation(Long id) {
+    public void deleteFormation(long id) {
         if(!formationRepository.existsById(id))
             throw new ResourceNotFound(messageSource.getMessage("Formation.not.found",null, Locale.getDefault()));
         formationRepository.deleteById(id);

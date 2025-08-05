@@ -17,7 +17,7 @@ public interface CandidatureService {
 
     List<CandidatureResponse> getAll();
 
-    List<CandidatureResponse> getByOffre(UUID offreId);
+    List<CandidatureResponse> getByOffre(long offreId);
 
     List<CandidatureResponse> getByCandidat(UUID candidatId);
 

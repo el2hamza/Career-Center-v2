@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CandidatureRepository extends JpaRepository<Candidature, UUID> {
-    List<Candidature> findByOffreId(UUID offreId);
+    List<Candidature> findByOffreId(long offreId);
 
     List<Candidature> findByCandidatId(UUID candidatId);
 }
