@@ -44,6 +44,16 @@ public class Student implements AppUser {
     private List<String> skills;
 
     @Override
+    public String getEmail() {
+        return this.email;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
     public String getRole() {
         return "STUDENT";
     }

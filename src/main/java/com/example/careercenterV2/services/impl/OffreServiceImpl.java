@@ -30,8 +30,10 @@ public class OffreServiceImpl implements OffreService {
 
     @Override
     public List<OffreResponse> getAllOffre() {
-        List<Offre> offres=  offreRepository.findAll();
-        return offreMapper.listToResponseList(offres);
+        return offreRepository.findAll()
+                .stream()
+                .map(offreMapper::entityToResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -62,20 +64,28 @@ public class OffreServiceImpl implements OffreService {
 
     @Override
     public List<OffreResponse> getOffreByType(String type) {
-        List<Offre> offres= offreRepository.findByType(type);
-        return offreMapper.listToResponseList(offres);
+        return offreRepository.findByType(type)
+                .stream()
+                .map(offreMapper::entityToResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<OffreResponse> getOffreBySecteur(String secteur) {
-        List<Offre> offres= offreRepository.findBySecteur(secteur);
-        return offreMapper.listToResponseList(offres);
+        return offreRepository.findBySecteur(secteur)
+                .stream()
+                .map(offreMapper::entityToResponse)
+                .collect(Collectors.toList());
+
     }
 
     @Override
     public List<OffreResponse> getExpiredOffres() {
-        List<Offre> offres= offreRepository.findByDateClotureBefore(new Date());
-        return offreMapper.listToResponseList(offres);
+        return offreRepository.findByDateClotureBefore(new Date())
+                .stream()
+                .map(offreMapper::entityToResponse)
+                .collect(Collectors.toList());
+
     }
 
 

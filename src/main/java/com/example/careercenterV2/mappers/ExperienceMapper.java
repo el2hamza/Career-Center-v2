@@ -10,14 +10,18 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        nullValueMapMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+@Mapper(componentModel = "spring")
 public interface ExperienceMapper extends ApplicationMapper<AddExperienceRequest, ExperienceResponse, Experience>{
+
+    @Override
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "student", ignore = true)
     Experience requestToEntity(AddExperienceRequest request);
+
     void updateEntity(EditExperienceRequest request,@MappingTarget Experience entity);
-    List<ExperienceResponse> listToResponseList(List<Experience> entities);
+
+
+    @Override
+    @Mapping(target = "studentId", source = "student.id")
+    ExperienceResponse entityToResponse(Experience entity);
 }

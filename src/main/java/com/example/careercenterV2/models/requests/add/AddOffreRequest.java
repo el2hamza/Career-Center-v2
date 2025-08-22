@@ -10,7 +10,8 @@ import java.util.UUID;
 
 
 @Data
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class AddOffreRequest {
 

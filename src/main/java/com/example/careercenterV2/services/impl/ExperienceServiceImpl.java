@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -56,8 +57,10 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Override
     public List<ExperienceResponse> getAllExperience(){
-        List<Experience> experiences = experienceRepository.findAll();
-        return experienceMapper.listToResponseList(experiences);
+        return experienceRepository.findAll()
+                .stream()
+                .map(experienceMapper::entityToResponse)
+                .collect(Collectors.toList());
     }
 
 

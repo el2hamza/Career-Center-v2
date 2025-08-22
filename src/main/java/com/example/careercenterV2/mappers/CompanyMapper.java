@@ -9,23 +9,34 @@ import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        nullValueMapMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CompanyMapper extends ApplicationMapper<RegisterCompanyRequest, CompanyResponse, Company> {
 
     @Override
+    @BeanMapping(ignoreByDefault = true)
+    @Mappings({
+            @Mapping(target = "name", source = "companyName"),
+            @Mapping(target = "email", source = "email"),
+    })
     Company requestToEntity(RegisterCompanyRequest request);
 
     @Override
     CompanyResponse entityToResponse(Company company);
 
-    @Override
-    List<CompanyResponse> listToResponseList(List<Company> companies);
 
     // Met à jour les infos du profil à partir de ProfileCompanyRequest
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mappings({
+
+            // @Mapping(target = "address", source = "address"),
+            // @Mapping(target = "phone",   source = "phone"),
+            // @Mapping(target = "city",    source = "city"),
+            // @Mapping(target = "secteur", source = "secteur"),
+            // @Mapping(target = "numPattente", source = "numPattente"),
+            // @Mapping(target = "description", source = "description"),
+            // @Mapping(target = "creationDate", source = "creationDate")
+    })
     void updateProfileFromRequest(ProfileCompanyRequest request, @MappingTarget Company company);
+
+
 }

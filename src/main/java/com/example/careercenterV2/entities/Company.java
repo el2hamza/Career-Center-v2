@@ -35,6 +35,15 @@ public class Company implements AppUser {
     private String description ;
     private Date creationDate ;
 
+    @Override
+    public String getEmail() {
+        return this.email;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
 
     @Override
     public String getRole() {

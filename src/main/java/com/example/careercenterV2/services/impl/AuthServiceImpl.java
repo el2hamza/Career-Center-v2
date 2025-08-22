@@ -40,7 +40,8 @@ public class AuthServiceImpl implements AuthService{
         student.setPassword(passwordEncoder.encode(request.getPassword()));
         student.setPhone(request.getPhone());
         studentRepository.save(student);
-        return new AuthResponse(jwtService.generateToken(student));
+        return new AuthResponse(jwtService.generateToken(student.getEmail(), "STUDENT"));
+
     }
 
     @Override
@@ -50,7 +51,8 @@ public class AuthServiceImpl implements AuthService{
         company.setEmail(request.getEmail());
         company.setPassword(passwordEncoder.encode(request.getPassword()));
         companyRepository.save(company);
-        return new AuthResponse(jwtService.generateToken(company));
+        return new AuthResponse(jwtService.generateToken(company.getEmail(), "COMPANY"));
+
     }
 
     @Override
@@ -62,12 +64,15 @@ public class AuthServiceImpl implements AuthService{
         } else if ("company".equalsIgnoreCase(request.getType())) {
             user = companyRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new BadCredentialsException("Company not found"));
+        } else {
+            throw new BadCredentialsException("Invalid type");
         }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("Invalid password");
         }
 
-        return new AuthResponse(jwtService.generateToken(user));
+        String token = jwtService.generateToken(user.getEmail(), user.getRole());
+        return new AuthResponse(token);
     }
 }

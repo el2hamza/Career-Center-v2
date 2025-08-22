@@ -9,22 +9,20 @@ import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        nullValueMapMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+@Mapper(componentModel = "spring")
 public interface StudentMapper extends ApplicationMapper<RegisterStudentRequest, StudentResponse, Student>{
 
     @Override
+    @BeanMapping(ignoreByDefault = true)
+    @Mappings({
+            @Mapping(target = "name", source = "name"),
+            @Mapping(target = "email", source = "email"),
+            @Mapping(target = "phone", source = "phone")
+    })
     Student requestToEntity(RegisterStudentRequest request);
 
     @Override
     StudentResponse entityToResponse(Student student);
-
-    @Override
-    List<StudentResponse> listToResponseList(List<Student> students);
 
     // Met à jour les infos du profil à partir de ProfileStudentRequest
     void updateProfileFromRequest(ProfileStudentRequest request, @MappingTarget Student student);

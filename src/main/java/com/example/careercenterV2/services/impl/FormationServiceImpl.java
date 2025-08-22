@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -62,8 +63,10 @@ public class FormationServiceImpl implements FormationService {
 
     @Override
     public List<FormationResponse> getAllFormations(){
-        List<Formation> formations = formationRepository.findAll();
-        return formationMapper.listToResponseList(formations);
+        return formationRepository.findAll()
+                .stream()
+                .map(formationMapper::entityToResponse)
+                .collect(Collectors.toList());
     }
 
 

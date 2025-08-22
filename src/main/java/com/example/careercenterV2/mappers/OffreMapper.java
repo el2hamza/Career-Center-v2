@@ -9,14 +9,20 @@ import com.example.careercenterV2.models.responses.OffreResponse;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        nullValueMapMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+@Mapper(componentModel = "spring")
 public interface OffreMapper extends ApplicationMapper<AddOffreRequest, OffreResponse, Offre> {
+
+    @Override
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "company", ignore = true)
+    @Mapping(target = "reference", ignore = true)
+    @Mapping(target = "datePublication", ignore = true)
     Offre requestToEntity(AddOffreRequest request);
+
+
     void updateEntity(EditOffreRequest request, @MappingTarget Offre entity);
-    List<OffreResponse> listToResponseList(List<Offre> entities);
+
+
+    @Override
+    OffreResponse entityToResponse(Offre entity);
 }

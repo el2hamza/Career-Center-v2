@@ -10,14 +10,15 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 
-@Mapper(componentModel = "spring",
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        nullValueMapMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+@Mapper(componentModel = "spring")
 public interface FormationMapper extends ApplicationMapper<AddFormationRequest, FormationResponse, Formation>{
+
+    @Override
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "student", ignore = true)
     Formation requestToEntity(AddFormationRequest request);
+
     void updateEntity(EditFormationRequest request,@MappingTarget Formation entity);
-    List<FormationResponse> listToResponseList(List<Formation> entities);
+
+
 }

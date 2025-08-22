@@ -10,14 +10,19 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        nullValueMapMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+@Mapper(componentModel = "spring")
 public interface CandidatureMapper extends ApplicationMapper<AddCandidatureRequest, CandidatureResponse, Candidature> {
+
+    @Override
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "candidat", ignore = true)
+    @Mapping(target = "offre", ignore = true)
     Candidature requestToEntity(AddCandidatureRequest request);
+
     void updateEntity(EditCandidatureRequest request, @MappingTarget Candidature entity);
-    List<CandidatureResponse> listToResponseList(List<Candidature> entities);
+
+    @Override
+    @Mapping(target = "candidatId", source = "candidat.id")
+    @Mapping(target = "offreId", source = "offre.id")
+    CandidatureResponse entityToResponse(Candidature entity);
 }
