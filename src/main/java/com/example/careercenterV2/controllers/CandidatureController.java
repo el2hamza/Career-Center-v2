@@ -19,13 +19,13 @@ public class CandidatureController {
 
     private final CandidatureService candidatureService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<CandidatureResponse> add (@Valid @RequestBody AddCandidatureRequest request) {
         CandidatureResponse candidature = candidatureService.create(request);
         return new ResponseEntity<>(candidature, HttpStatus.CREATED);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<CandidatureResponse>> get(){
         List<CandidatureResponse> candidatures = candidatureService.getAll();
         return new ResponseEntity<>(candidatures, HttpStatus.OK);
@@ -37,25 +37,25 @@ public class CandidatureController {
         return new ResponseEntity<>(candidature, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/candidat/{id}")
     public ResponseEntity<List<CandidatureResponse>> getMine(@PathVariable UUID id){
         List<CandidatureResponse> candidatures = candidatureService.getByCandidat(id) ;
         return new ResponseEntity<>(candidatures, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/offre/{id}")
     public ResponseEntity<List<CandidatureResponse>> getByOffre(@PathVariable long id){
         List<CandidatureResponse> candidatures = candidatureService.getByOffre(id);
         return new ResponseEntity<>(candidatures, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/accept")
     public ResponseEntity<CandidatureResponse> accept(@PathVariable UUID id){
         CandidatureResponse candidature = candidatureService.accepterCandidature(id) ;
         return new ResponseEntity<>(candidature, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/reject")
     public ResponseEntity<CandidatureResponse> reject(@PathVariable UUID id){
         CandidatureResponse candidature = candidatureService.rejeterCandidature(id) ;
         return new ResponseEntity<>(candidature, HttpStatus.OK);
