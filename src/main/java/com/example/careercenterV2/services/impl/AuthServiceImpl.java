@@ -34,6 +34,9 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public AuthResponse registerStudent(RegisterStudentRequest request) {
+        if (studentRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new BadCredentialsException("Email already exist");
+        }
         Student student = new Student();
         student.setName(request.getName());
         student.setEmail(request.getEmail());
@@ -46,6 +49,9 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public AuthResponse registerCompany(RegisterCompanyRequest request) {
+        if (companyRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new BadCredentialsException("Email already exist");
+        }
         Company company = new Company();
         company.setName(request.getCompanyName());
         company.setEmail(request.getEmail());
