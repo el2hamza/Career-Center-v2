@@ -17,7 +17,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ProfileStudentRequest {
 
-    private UUID id;
     private String address;
     private String city;
     private String cv;

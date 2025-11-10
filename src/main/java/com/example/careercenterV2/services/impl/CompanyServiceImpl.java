@@ -11,6 +11,9 @@ import com.example.careercenterV2.utils.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,8 +50,15 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyResponse editProfileCompany(ProfileCompanyRequest profile){
-        Company company = companyRepository.findById(profile.getId())
-                .orElseThrow(()-> new ResourceNotFound(messageSource.getMessage("Company.not.found",null, Locale.getDefault())) ) ;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        Company company = companyRepository.findByEmail(email)
+                .orElseThrow(()-> new ResourceNotFound(
+                        messageSource.getMessage("Company.not.found",null, LocaleContextHolder.getLocale())
+                )) ;
+
+
         String uploadDir = baseUploadDir + "/" + company.getId();
         fileStorageService.createDirectoryIfNotExist(uploadDir);
 

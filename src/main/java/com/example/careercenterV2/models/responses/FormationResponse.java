@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 
-
+@Data
 @Builder
 public class FormationResponse {
 

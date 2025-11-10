@@ -12,6 +12,9 @@ import com.example.careercenterV2.utils.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
@@ -50,9 +53,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentResponse editProfileStudent(ProfileStudentRequest profile) {
-        Student student = studentRepository.findById(profile.getId())
-                .orElseThrow(() -> new ResourceNotFound(messageSource.getMessage("Student.not.found",null, Locale.getDefault())));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
 
+        Student student = studentRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFound(
+                        messageSource.getMessage("Student.not.found", null, LocaleContextHolder.getLocale())
+                ));
         // Upload CV and photo files if provided
         String uploadDir = baseUploadDir + "/" + student.getId();
         fileStorageService.createDirectoryIfNotExist(uploadDir);
